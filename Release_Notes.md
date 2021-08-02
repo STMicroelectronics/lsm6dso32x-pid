@@ -38,7 +38,7 @@ This directory contains the LSM6DSO32X component drivers.
 
 ### First release
 
-- First official release
+- First official release [ref. DS v1.0]
 
 ##
 

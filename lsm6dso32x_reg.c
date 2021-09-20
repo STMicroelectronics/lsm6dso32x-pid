@@ -10361,17 +10361,18 @@ int32_t lsm6dso32x_pin_int1_route_set(stmdev_ctx_t *ctx,
                                       lsm6dso32x_pin_int1_route_t val)
 {
   lsm6dso32x_pin_int2_route_t  pin_int2_route;
-  lsm6dso32x_emb_func_int1_t   emb_func_int1;
-  lsm6dso32x_fsm_int1_a_t      fsm_int1_a;
-  lsm6dso32x_fsm_int1_b_t      fsm_int1_b;
-  lsm6dso32x_int1_ctrl_t       int1_ctrl;
+  lsm6dso32x_emb_func_int1_t   emb_func_int1 = {0};
+  lsm6dso32x_fsm_int1_a_t      fsm_int1_a = {0};
+  lsm6dso32x_fsm_int1_b_t      fsm_int1_b = {0};
+  lsm6dso32x_int1_ctrl_t       int1_ctrl = {0};
   lsm6dso32x_int2_ctrl_t       int2_ctrl;
-  lsm6dso32x_mlc_int1_t        mlc_int1;
+  lsm6dso32x_mlc_int1_t        mlc_int1 = {0};
   lsm6dso32x_tap_cfg2_t        tap_cfg2;
   lsm6dso32x_md2_cfg_t         md2_cfg;
-  lsm6dso32x_md1_cfg_t         md1_cfg;
+  lsm6dso32x_md1_cfg_t         md1_cfg = {0};
   lsm6dso32x_ctrl4_c_t         ctrl4_c;
   int32_t                    ret;
+
   int1_ctrl.int1_drdy_xl   = val.drdy_xl;
   int1_ctrl.int1_drdy_g    = val.drdy_g;
   int1_ctrl.int1_boot      = val.boot;
@@ -10753,13 +10754,13 @@ int32_t lsm6dso32x_pin_int2_route_set(stmdev_ctx_t *ctx,
                                       lsm6dso32x_pin_int2_route_t val)
 {
   lsm6dso32x_pin_int1_route_t pin_int1_route;
-  lsm6dso32x_emb_func_int2_t  emb_func_int2;
-  lsm6dso32x_fsm_int2_a_t     fsm_int2_a;
-  lsm6dso32x_fsm_int2_b_t     fsm_int2_b;
-  lsm6dso32x_int2_ctrl_t      int2_ctrl;
-  lsm6dso32x_mlc_int2_t       mlc_int2;
+  lsm6dso32x_emb_func_int2_t  emb_func_int2 = {0};
+  lsm6dso32x_fsm_int2_a_t     fsm_int2_a = {0};
+  lsm6dso32x_fsm_int2_b_t     fsm_int2_b = {0};
+  lsm6dso32x_int2_ctrl_t      int2_ctrl = {0};
+  lsm6dso32x_mlc_int2_t       mlc_int2 = {0};
   lsm6dso32x_tap_cfg2_t       tap_cfg2;
-  lsm6dso32x_md2_cfg_t        md2_cfg;
+  lsm6dso32x_md2_cfg_t        md2_cfg = {0};
   lsm6dso32x_ctrl4_c_t        ctrl4_c;
   int32_t                   ret;
   ret = 0;
@@ -11261,8 +11262,8 @@ int32_t lsm6dso32x_mode_set(stmdev_ctx_t *ctx,
   lsm6dso32x_ctrl1_xl_t ctrl1_xl;
   lsm6dso32x_ctrl8_xl_t ctrl8_xl;
   lsm6dso32x_ctrl2_g_t ctrl2_g;
-  lsm6dso32x_ctrl3_c_t ctrl3_c;
-  lsm6dso32x_ctrl4_c_t ctrl4_c;
+  lsm6dso32x_ctrl3_c_t ctrl3_c = {0};
+  lsm6dso32x_ctrl4_c_t ctrl4_c = {0};
   lsm6dso32x_ctrl5_c_t ctrl5_c;
   lsm6dso32x_ctrl6_c_t ctrl6_c;
   lsm6dso32x_ctrl7_g_t ctrl7_g;

@@ -383,9 +383,9 @@ int32_t lsm6dso32x_xl_data_rate_set(stmdev_ctx_t *ctx, lsm6dso32x_odr_xl_t val)
 
   if (ret == 0)
   {
-    lsm6dso32x_embedded_sens_get(ctx, &emb_sens);
+    ret = lsm6dso32x_embedded_sens_get(ctx, &emb_sens);
 
-    if (emb_sens.mlc == PROPERTY_ENABLE)
+    if ((ret == 0) && (emb_sens.mlc == PROPERTY_ENABLE))
     {
       ret =  lsm6dso32x_mlc_data_rate_get(ctx, &mlc_odr);
 
@@ -9939,11 +9939,8 @@ int32_t lsm6dso32x_bus_mode_set(stmdev_ctx_t *ctx,
 
   if (ctx != NULL)
   {
-    if (ret == 0)
-    {
-      ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_CTRL9_XL,
-                                (uint8_t *)&ctrl9_xl, 1);
-    }
+    ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_CTRL9_XL,
+                              (uint8_t *)&ctrl9_xl, 1);
 
     bit_val = ((uint8_t)val.ui_bus_md & 0x04U) >> 2;
 
@@ -10024,11 +10021,8 @@ int32_t lsm6dso32x_bus_mode_get(stmdev_ctx_t *ctx,
 
   if (ctx != NULL)
   {
-    if (ret == 0)
-    {
-      ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_CTRL9_XL,
-                                (uint8_t *)&ctrl9_xl, 1);
-    }
+    ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_CTRL9_XL,
+                              (uint8_t *)&ctrl9_xl, 1);
 
     if (ret == 0)
     {
@@ -10809,26 +10803,22 @@ int32_t lsm6dso32x_pin_int2_route_set(stmdev_ctx_t *ctx,
     mlc_int2.int2_mlc7 = val.mlc7;
     mlc_int2.int2_mlc8 = val.mlc8;
 
+    ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_CTRL4_C,
+                              (uint8_t *)&ctrl4_c, 1);
+
     if (ret == 0)
     {
-      ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_CTRL4_C,
-                                (uint8_t *)&ctrl4_c, 1);
-
-      if (ret == 0)
+      if ((val.drdy_temp | val.timestamp) != PROPERTY_DISABLE)
       {
-        if ((val.drdy_temp | val.timestamp) != PROPERTY_DISABLE)
-        {
-          ctrl4_c.int2_on_int1 = PROPERTY_DISABLE;
-        }
-
-        else
-        {
-          ctrl4_c.int2_on_int1 = PROPERTY_ENABLE;
-        }
-
-        ret = lsm6dso32x_write_reg(ctx, LSM6DSO32X_CTRL4_C,
-                                   (uint8_t *)&ctrl4_c, 1);
+        ctrl4_c.int2_on_int1 = PROPERTY_DISABLE;
       }
+      else
+      {
+        ctrl4_c.int2_on_int1 = PROPERTY_ENABLE;
+      }
+
+      ret = lsm6dso32x_write_reg(ctx, LSM6DSO32X_CTRL4_C,
+                                 (uint8_t *)&ctrl4_c, 1);
     }
 
     if (ret == 0)
@@ -10995,10 +10985,7 @@ int32_t lsm6dso32x_pin_int2_route_get(stmdev_ctx_t *ctx,
 
   if (ctx != NULL)
   {
-    if (ret == 0)
-    {
-      ret = lsm6dso32x_mem_bank_set(ctx, LSM6DSO32X_EMBEDDED_FUNC_BANK);
-    }
+    ret = lsm6dso32x_mem_bank_set(ctx, LSM6DSO32X_EMBEDDED_FUNC_BANK);
 
     if (ret == 0)
     {

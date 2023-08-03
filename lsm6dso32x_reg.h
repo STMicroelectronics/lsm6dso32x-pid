@@ -3898,24 +3898,28 @@ typedef struct
 int32_t lsm6dso32x_id_get(stmdev_ctx_t *ctx,
                           lsm6dso32x_id_t *val);
 
+typedef enum
+{
+  LSM6DSO32X_SEL_BY_HW   = 0x00, /* bus mode select by HW (SPI 3W disable) */
+  LSM6DSO32X_SPI_4W      = 0x06, /* Only SPI: SDO / SDI separated pins */
+  LSM6DSO32X_SPI_3W      = 0x07, /* Only SPI: SDO / SDI share the same pin */
+  LSM6DSO32X_I2C         = 0x04, /* Only I2C */
+  LSM6DSO32X_I3C_T_50us  = 0x02, /* I3C: available time equal to 50 μs */
+  LSM6DSO32X_I3C_T_2us   = 0x12, /* I3C: available time equal to 2 μs */
+  LSM6DSO32X_I3C_T_1ms   = 0x22, /* I3C: available time equal to 1 ms */
+  LSM6DSO32X_I3C_T_25ms  = 0x32, /* I3C: available time equal to 25 ms */
+} lsm6dso32x_ui_bus_md_t;
+
+typedef enum
+{
+  LSM6DSO32X_SPI_4W_AUX  = 0x00,
+  LSM6DSO32X_SPI_3W_AUX  = 0x01,
+} lsm6dso32x_aux_bus_md_t;
+
 typedef struct
 {
-  enum
-  {
-    LSM6DSO32X_SEL_BY_HW   = 0x00, /* bus mode select by HW (SPI 3W disable) */
-    LSM6DSO32X_SPI_4W      = 0x06, /* Only SPI: SDO / SDI separated pins */
-    LSM6DSO32X_SPI_3W      = 0x07, /* Only SPI: SDO / SDI share the same pin */
-    LSM6DSO32X_I2C         = 0x04, /* Only I2C */
-    LSM6DSO32X_I3C_T_50us  = 0x02, /* I3C: available time equal to 50 μs */
-    LSM6DSO32X_I3C_T_2us   = 0x12, /* I3C: available time equal to 2 μs */
-    LSM6DSO32X_I3C_T_1ms   = 0x22, /* I3C: available time equal to 1 ms */
-    LSM6DSO32X_I3C_T_25ms  = 0x32, /* I3C: available time equal to 25 ms */
-  } ui_bus_md;
-  enum
-  {
-    LSM6DSO32X_SPI_4W_AUX  = 0x00,
-    LSM6DSO32X_SPI_3W_AUX  = 0x01,
-  } aux_bus_md;
+  lsm6dso32x_ui_bus_md_t ui_bus_md;
+  lsm6dso32x_aux_bus_md_t aux_bus_md;
 } lsm6dso32x_bus_mode_t;
 int32_t lsm6dso32x_bus_mode_set(stmdev_ctx_t *ctx,
                                 lsm6dso32x_bus_mode_t val);
@@ -4185,109 +4189,109 @@ typedef struct
 int32_t lsm6dso32x_calibration_get(stmdev_ctx_t *ctx,
                                    lsm6dso32x_dev_cal_t *val);
 
+typedef enum
+{
+  LSM6DSO32X_XL_UI_OFF       = 0x00, /* in power down */
+  LSM6DSO32X_XL_UI_1Hz6_LP   = 0x1B, /* @1Hz6 (low power) */
+  LSM6DSO32X_XL_UI_1Hz6_ULP  = 0x2B, /* @1Hz6 (ultra low/Gy) */
+  LSM6DSO32X_XL_UI_12Hz5_HP  = 0x01, /* @12Hz5 (high performance) */
+  LSM6DSO32X_XL_UI_12Hz5_LP  = 0x11, /* @12Hz5 (low power) */
+  LSM6DSO32X_XL_UI_12Hz5_ULP = 0x21, /* @12Hz5 (ultra low/Gy) */
+  LSM6DSO32X_XL_UI_26Hz_HP   = 0x02, /* @26Hz  (high performance) */
+  LSM6DSO32X_XL_UI_26Hz_LP   = 0x12, /* @26Hz  (low power) */
+  LSM6DSO32X_XL_UI_26Hz_ULP  = 0x22, /* @26Hz  (ultra low/Gy) */
+  LSM6DSO32X_XL_UI_52Hz_HP   = 0x03, /* @52Hz  (high performance) */
+  LSM6DSO32X_XL_UI_52Hz_LP   = 0x13, /* @52Hz  (low power) */
+  LSM6DSO32X_XL_UI_52Hz_ULP  = 0x23, /* @52Hz  (ultra low/Gy) */
+  LSM6DSO32X_XL_UI_104Hz_HP  = 0x04, /* @104Hz (high performance) */
+  LSM6DSO32X_XL_UI_104Hz_NM  = 0x14, /* @104Hz (normal mode) */
+  LSM6DSO32X_XL_UI_104Hz_ULP = 0x24, /* @104Hz (ultra low/Gy) */
+  LSM6DSO32X_XL_UI_208Hz_HP  = 0x05, /* @208Hz (high performance) */
+  LSM6DSO32X_XL_UI_208Hz_NM  = 0x15, /* @208Hz (normal mode) */
+  LSM6DSO32X_XL_UI_208Hz_ULP = 0x25, /* @208Hz (ultra low/Gy) */
+  LSM6DSO32X_XL_UI_416Hz_HP  = 0x06, /* @416Hz (high performance) */
+  LSM6DSO32X_XL_UI_833Hz_HP  = 0x07, /* @833Hz (high performance) */
+  LSM6DSO32X_XL_UI_1667Hz_HP = 0x08, /* @1kHz66 (high performance) */
+  LSM6DSO32X_XL_UI_3333Hz_HP = 0x09, /* @3kHz33 (high performance) */
+  LSM6DSO32X_XL_UI_6667Hz_HP = 0x0A, /* @6kHz66 (high performance) */
+} lsm6dso32x_ui_xl_odr_t;
+
+typedef enum
+{
+  LSM6DSO32X_XL_UI_4g   = 0,
+  LSM6DSO32X_XL_UI_32g  = 1,
+  LSM6DSO32X_XL_UI_8g   = 2,
+  LSM6DSO32X_XL_UI_16g  = 3,
+} lsm6dso32x_ui_xl_fs_t;
+
+typedef enum
+{
+  LSM6DSO32X_GY_UI_OFF       = 0x00, /* gy in power down */
+  LSM6DSO32X_GY_UI_12Hz5_LP  = 0x11, /* gy @12Hz5 (low power) */
+  LSM6DSO32X_GY_UI_12Hz5_HP  = 0x01, /* gy @12Hz5 (high performance) */
+  LSM6DSO32X_GY_UI_26Hz_LP   = 0x12, /* gy @26Hz  (low power) */
+  LSM6DSO32X_GY_UI_26Hz_HP   = 0x02, /* gy @26Hz  (high performance) */
+  LSM6DSO32X_GY_UI_52Hz_LP   = 0x13, /* gy @52Hz  (low power) */
+  LSM6DSO32X_GY_UI_52Hz_HP   = 0x03, /* gy @52Hz  (high performance) */
+  LSM6DSO32X_GY_UI_104Hz_NM  = 0x14, /* gy @104Hz (low power) */
+  LSM6DSO32X_GY_UI_104Hz_HP  = 0x04, /* gy @104Hz (high performance) */
+  LSM6DSO32X_GY_UI_208Hz_NM  = 0x15, /* gy @208Hz (low power) */
+  LSM6DSO32X_GY_UI_208Hz_HP  = 0x05, /* gy @208Hz (high performance) */
+  LSM6DSO32X_GY_UI_416Hz_HP  = 0x06, /* gy @416Hz (high performance) */
+  LSM6DSO32X_GY_UI_833Hz_HP  = 0x07, /* gy @833Hz (high performance) */
+  LSM6DSO32X_GY_UI_1667Hz_HP = 0x08, /* gy @1kHz66 (high performance) */
+  LSM6DSO32X_GY_UI_3333Hz_HP = 0x09, /* gy @3kHz33 (high performance) */
+  LSM6DSO32X_GY_UI_6667Hz_HP = 0x0A, /* gy @6kHz66 (high performance) */
+} lsm6dso32x_ui_gy_odr_t;
+
+typedef enum
+{
+  LSM6DSO32X_GY_UI_250dps   = 0,
+  LSM6DSO32X_GY_UI_125dps   = 1,
+  LSM6DSO32X_GY_UI_500dps   = 2,
+  LSM6DSO32X_GY_UI_1000dps  = 4,
+  LSM6DSO32X_GY_UI_2000dps  = 6,
+} lsm6dso32x_ui_gy_fs_t;
+
+typedef enum
+{
+  LSM6DSO32X_FSM_DISABLE = 0x00,
+  LSM6DSO32X_FSM_XL      = 0x01,
+  LSM6DSO32X_FSM_GY      = 0x02,
+  LSM6DSO32X_FSM_XL_GY   = 0x03,
+} lsm6dso32x_fsm_sens_t;
+
+typedef enum
+{
+  LSM6DSO32X_MLC_DISABLE = 0x00,
+  LSM6DSO32X_MLC_XL      = 0x01,
+  LSM6DSO32X_MLC_XL_GY   = 0x03,
+} lsm6dso32x_mlc_sens_t;
+
 typedef struct
 {
   struct
   {
     struct
     {
-      enum
-      {
-        LSM6DSO32X_XL_UI_OFF       = 0x00, /* in power down */
-        LSM6DSO32X_XL_UI_1Hz6_LP   = 0x1B, /* @1Hz6 (low power) */
-        LSM6DSO32X_XL_UI_1Hz6_ULP  = 0x2B, /* @1Hz6 (ultra low/Gy) */
-        LSM6DSO32X_XL_UI_12Hz5_HP  = 0x01, /* @12Hz5 (high performance) */
-        LSM6DSO32X_XL_UI_12Hz5_LP  = 0x11, /* @12Hz5 (low power) */
-        LSM6DSO32X_XL_UI_12Hz5_ULP = 0x21, /* @12Hz5 (ultra low/Gy) */
-        LSM6DSO32X_XL_UI_26Hz_HP   = 0x02, /* @26Hz  (high performance) */
-        LSM6DSO32X_XL_UI_26Hz_LP   = 0x12, /* @26Hz  (low power) */
-        LSM6DSO32X_XL_UI_26Hz_ULP  = 0x22, /* @26Hz  (ultra low/Gy) */
-        LSM6DSO32X_XL_UI_52Hz_HP   = 0x03, /* @52Hz  (high performance) */
-        LSM6DSO32X_XL_UI_52Hz_LP   = 0x13, /* @52Hz  (low power) */
-        LSM6DSO32X_XL_UI_52Hz_ULP  = 0x23, /* @52Hz  (ultra low/Gy) */
-        LSM6DSO32X_XL_UI_104Hz_HP  = 0x04, /* @104Hz (high performance) */
-        LSM6DSO32X_XL_UI_104Hz_NM  = 0x14, /* @104Hz (normal mode) */
-        LSM6DSO32X_XL_UI_104Hz_ULP = 0x24, /* @104Hz (ultra low/Gy) */
-        LSM6DSO32X_XL_UI_208Hz_HP  = 0x05, /* @208Hz (high performance) */
-        LSM6DSO32X_XL_UI_208Hz_NM  = 0x15, /* @208Hz (normal mode) */
-        LSM6DSO32X_XL_UI_208Hz_ULP = 0x25, /* @208Hz (ultra low/Gy) */
-        LSM6DSO32X_XL_UI_416Hz_HP  = 0x06, /* @416Hz (high performance) */
-        LSM6DSO32X_XL_UI_833Hz_HP  = 0x07, /* @833Hz (high performance) */
-        LSM6DSO32X_XL_UI_1667Hz_HP = 0x08, /* @1kHz66 (high performance) */
-        LSM6DSO32X_XL_UI_3333Hz_HP = 0x09, /* @3kHz33 (high performance) */
-        LSM6DSO32X_XL_UI_6667Hz_HP = 0x0A, /* @6kHz66 (high performance) */
-      } odr;
-      enum
-      {
-        LSM6DSO32X_XL_UI_4g   = 0,
-        LSM6DSO32X_XL_UI_32g  = 1,
-        LSM6DSO32X_XL_UI_8g   = 2,
-        LSM6DSO32X_XL_UI_16g  = 3,
-      } fs;
+      lsm6dso32x_ui_xl_odr_t odr;
+      lsm6dso32x_ui_xl_fs_t fs;
     } xl;
     struct
     {
-      enum
-      {
-        LSM6DSO32X_GY_UI_OFF       = 0x00, /* gy in power down */
-        LSM6DSO32X_GY_UI_12Hz5_LP  = 0x11, /* gy @12Hz5 (low power) */
-        LSM6DSO32X_GY_UI_12Hz5_HP  = 0x01, /* gy @12Hz5 (high performance) */
-        LSM6DSO32X_GY_UI_26Hz_LP   = 0x12, /* gy @26Hz  (low power) */
-        LSM6DSO32X_GY_UI_26Hz_HP   = 0x02, /* gy @26Hz  (high performance) */
-        LSM6DSO32X_GY_UI_52Hz_LP   = 0x13, /* gy @52Hz  (low power) */
-        LSM6DSO32X_GY_UI_52Hz_HP   = 0x03, /* gy @52Hz  (high performance) */
-        LSM6DSO32X_GY_UI_104Hz_NM  = 0x14, /* gy @104Hz (low power) */
-        LSM6DSO32X_GY_UI_104Hz_HP  = 0x04, /* gy @104Hz (high performance) */
-        LSM6DSO32X_GY_UI_208Hz_NM  = 0x15, /* gy @208Hz (low power) */
-        LSM6DSO32X_GY_UI_208Hz_HP  = 0x05, /* gy @208Hz (high performance) */
-        LSM6DSO32X_GY_UI_416Hz_HP  = 0x06, /* gy @416Hz (high performance) */
-        LSM6DSO32X_GY_UI_833Hz_HP  = 0x07, /* gy @833Hz (high performance) */
-        LSM6DSO32X_GY_UI_1667Hz_HP = 0x08, /* gy @1kHz66 (high performance) */
-        LSM6DSO32X_GY_UI_3333Hz_HP = 0x09, /* gy @3kHz33 (high performance) */
-        LSM6DSO32X_GY_UI_6667Hz_HP = 0x0A, /* gy @6kHz66 (high performance) */
-      } odr;
-      enum
-      {
-        LSM6DSO32X_GY_UI_250dps   = 0,
-        LSM6DSO32X_GY_UI_125dps   = 1,
-        LSM6DSO32X_GY_UI_500dps   = 2,
-        LSM6DSO32X_GY_UI_1000dps  = 4,
-        LSM6DSO32X_GY_UI_2000dps  = 6,
-      } fs;
+      lsm6dso32x_ui_gy_odr_t odr;
+      lsm6dso32x_ui_gy_fs_t fs;
     } gy;
   } ui;
   struct
   {
-    enum
-    {
-      LSM6DSO32X_FSM_DISABLE = 0x00,
-      LSM6DSO32X_FSM_XL      = 0x01,
-      LSM6DSO32X_FSM_GY      = 0x02,
-      LSM6DSO32X_FSM_XL_GY   = 0x03,
-    } sens;
-    enum
-    {
-      LSM6DSO32X_FSM_12Hz5 = 0x00,
-      LSM6DSO32X_FSM_26Hz  = 0x01,
-      LSM6DSO32X_FSM_52Hz  = 0x02,
-      LSM6DSO32X_FSM_104Hz = 0x03,
-    } odr;
+    lsm6dso32x_fsm_sens_t sens;
+    lsm6dso32x_fsm_odr_t odr;
   } fsm;
   struct
   {
-    enum
-    {
-      LSM6DSO32X_MLC_DISABLE = 0x00,
-      LSM6DSO32X_MLC_XL      = 0x01,
-      LSM6DSO32X_MLC_XL_GY   = 0x03,
-    } sens;
-    enum
-    {
-      LSM6DSO32X_MLC_12Hz5 = 0x00,
-      LSM6DSO32X_MLC_26Hz  = 0x01,
-      LSM6DSO32X_MLC_52Hz  = 0x02,
-      LSM6DSO32X_MLC_104Hz = 0x03,
-    } odr;
+    lsm6dso32x_mlc_sens_t sens;
+    lsm6dso32x_mlc_odr_t odr;
   } mlc;
 } lsm6dso32x_md_t;
 int32_t lsm6dso32x_mode_set(stmdev_ctx_t *ctx,

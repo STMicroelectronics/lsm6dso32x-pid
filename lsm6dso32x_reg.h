@@ -185,11 +185,9 @@ typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
   uint8_t not_used_01              : 6;
-uint8_t reg_access               :
-  2; /* shub_reg_access + func_cfg_access */
+  uint8_t reg_access               : 2; /* shub_reg_access + func_cfg_access */
 #elif DRV_BYTE_ORDER == DRV_BIG_ENDIAN
-uint8_t reg_access               :
-  2; /* shub_reg_access + func_cfg_access */
+  uint8_t reg_access               : 2; /* shub_reg_access + func_cfg_access */
   uint8_t not_used_01              : 6;
 #endif /* DRV_BYTE_ORDER */
 } lsm6dso32x_func_cfg_access_t;
@@ -440,11 +438,9 @@ typedef struct
   uint8_t ftype                    : 3;
   uint8_t usr_off_w                : 1;
   uint8_t xl_hm_mode               : 1;
-uint8_t den_mode                 :
-  3;   /* trig_en + lvl1_en + lvl2_en */
+  uint8_t den_mode                 : 3;   /* trig_en + lvl1_en + lvl2_en */
 #elif DRV_BYTE_ORDER == DRV_BIG_ENDIAN
-uint8_t den_mode                 :
-  3;   /* trig_en + lvl1_en + lvl2_en */
+  uint8_t den_mode                 : 3;   /* trig_en + lvl1_en + lvl2_en */
   uint8_t xl_hm_mode               : 1;
   uint8_t usr_off_w                : 1;
   uint8_t ftype                    : 3;
@@ -1422,13 +1418,11 @@ typedef struct
 typedef struct
 {
 #if DRV_BYTE_ORDER == DRV_LITTLE_ENDIAN
-uint8_t fsm_lc_clr               :
-  2;  /* fsm_lc_cleared + fsm_lc_clear */
+  uint8_t fsm_lc_clr               : 2;  /* fsm_lc_cleared + fsm_lc_clear */
   uint8_t not_used_01              : 6;
 #elif DRV_BYTE_ORDER == DRV_BIG_ENDIAN
   uint8_t not_used_01              : 6;
-uint8_t fsm_lc_clr               :
-  2;  /* fsm_lc_cleared + fsm_lc_clear */
+  uint8_t fsm_lc_clr               : 2;  /* fsm_lc_cleared + fsm_lc_clear */
 #endif /* DRV_BYTE_ORDER */
 } lsm6dso32x_fsm_long_counter_clear_t;
 
@@ -3942,8 +3936,7 @@ int32_t lsm6dso32x_init_set(const stmdev_ctx_t *ctx, lsm6dso32x_init_t val);
 
 typedef struct
 {
-uint8_t sw_reset           :
-  1; /* Restoring configuration registers */
+  uint8_t sw_reset           : 1; /* Restoring configuration registers */
   uint8_t boot               : 1; /* Restoring calibration parameters */
   uint8_t drdy_xl            : 1; /* Accelerometer data ready */
   uint8_t drdy_g             : 1; /* Gyroscope data ready */
@@ -3955,11 +3948,9 @@ int32_t lsm6dso32x_status_get(const stmdev_ctx_t *ctx,
 typedef struct
 {
   uint8_t sdo_sa0_pull_up     : 1; /* 1 = pull-up on SDO/SA0 pin */
-uint8_t aux_sdo_ocs_pull_up :
-  1; /* 1 = pull-up on OCS_Aux/SDO_Aux pins */
+  uint8_t aux_sdo_ocs_pull_up : 1; /* 1 = pull-up on OCS_Aux/SDO_Aux pins */
   uint8_t int1_int2_push_pull : 1; /* 1 = push-pull / 0 = open-drain*/
-uint8_t int1_pull_down      :
-  1; /* 1 = pull-down always disabled (0=auto) */
+  uint8_t int1_pull_down      : 1; /* 1 = pull-down always disabled (0=auto) */
 } lsm6dso32x_pin_conf_t;
 int32_t lsm6dso32x_pin_conf_set(const stmdev_ctx_t *ctx,
                                 lsm6dso32x_pin_conf_t val);
@@ -3969,10 +3960,8 @@ int32_t lsm6dso32x_pin_conf_get(const stmdev_ctx_t *ctx,
 typedef struct
 {
   uint8_t active_low   : 1; /* 1 = active low / 0 = active high */
-uint8_t base_latched :
-  1; /* base functions are: FF, WU, 6D, Tap, Act/Inac */
-uint8_t emb_latched  :
-  1; /* emb functions are: Pedo, Tilt, SMot, Timestamp */
+  uint8_t base_latched : 1; /* base functions are: FF, WU, 6D, Tap, Act/Inac */
+  uint8_t emb_latched  : 1; /* emb functions are: Pedo, Tilt, SMot, Timestamp */
 } lsm6dso32x_int_mode_t;
 int32_t lsm6dso32x_interrupt_mode_set(const stmdev_ctx_t *ctx,
                                       lsm6dso32x_int_mode_t val);
@@ -3983,30 +3972,25 @@ typedef struct
 {
   uint8_t drdy_xl       : 1; /* Accelerometer data ready */
   uint8_t drdy_g        : 1; /* Gyroscope data ready */
-uint8_t drdy_temp     :
-  1; /* Temperature data ready (1 = int2 pin disable) */
+  uint8_t drdy_temp     : 1; /* Temperature data ready (1 = int2 pin disable) */
   uint8_t boot          : 1; /* Restoring calibration parameters */
   uint8_t fifo_th       : 1; /* FIFO threshold reached */
   uint8_t fifo_ovr      : 1; /* FIFO overrun */
   uint8_t fifo_full     : 1; /* FIFO full */
   uint8_t fifo_bdr      : 1; /* FIFO Batch counter threshold reached */
-uint8_t den_flag      :
-  1; /* external trigger level recognition (DEN) */
+  uint8_t den_flag      : 1; /* external trigger level recognition (DEN) */
   uint8_t sh_endop      : 1; /* sensor hub end operation */
-uint8_t timestamp     :
-  1; /* timestamp overflow (1 = int2 pin disable) */
+  uint8_t timestamp     : 1; /* timestamp overflow (1 = int2 pin disable) */
   uint8_t six_d         : 1; /* orientation change (6D/4D detection) */
   uint8_t double_tap    : 1; /* double-tap event */
   uint8_t free_fall     : 1; /* free fall event */
   uint8_t wake_up       : 1; /* wake up event */
   uint8_t single_tap    : 1; /* single-tap event */
-uint8_t sleep_change  :
-  1; /* Act/Inact (or Vice-versa) status changed */
+  uint8_t sleep_change  : 1; /* Act/Inact (or Vice-versa) status changed */
   uint8_t step_detector : 1; /* Step detected */
   uint8_t tilt          : 1; /* Relative tilt event detected */
   uint8_t sig_mot       : 1; /* "significant motion" event detected */
-uint8_t fsm_lc        :
-  1; /* fsm long counter timeout interrupt event */
+  uint8_t fsm_lc        : 1; /* fsm long counter timeout interrupt event */
   uint8_t fsm1          : 1; /* fsm 1 interrupt event */
   uint8_t fsm2          : 1; /* fsm 2 interrupt event */
   uint8_t fsm3          : 1; /* fsm 3 interrupt event */
@@ -4053,13 +4037,11 @@ typedef struct
   uint8_t free_fall     : 1; /* free fall event */
   uint8_t wake_up       : 1; /* wake up event */
   uint8_t single_tap    : 1; /* single-tap event */
-uint8_t sleep_change  :
-  1; /* Act/Inact (or Vice-versa) status changed */
+  uint8_t sleep_change  : 1; /* Act/Inact (or Vice-versa) status changed */
   uint8_t step_detector : 1; /* Step detected */
   uint8_t tilt          : 1; /* Relative tilt event detected */
   uint8_t sig_mot       : 1; /* "significant motion" event detected */
-uint8_t fsm_lc        :
-  1; /* fsm long counter timeout interrupt event */
+  uint8_t fsm_lc        : 1; /* fsm long counter timeout interrupt event */
   uint8_t fsm1          : 1; /* fsm 1 interrupt event */
   uint8_t fsm2          : 1; /* fsm 2 interrupt event */
   uint8_t fsm3          : 1; /* fsm 3 interrupt event */
@@ -4096,10 +4078,8 @@ typedef struct
   uint8_t drdy_xl          :  1; /* Accelerometer data ready */
   uint8_t drdy_g           :  1; /* Gyroscope data ready */
   uint8_t drdy_temp        :  1; /* Temperature data ready */
-uint8_t den_flag         :
-  1; /* external trigger level recognition (DEN) */
-uint8_t timestamp        :
-  1; /* timestamp overflow (1 = int2 pin disable) */
+  uint8_t den_flag         : 1; /* external trigger level recognition (DEN) */
+  uint8_t timestamp        : 1; /* timestamp overflow (1 = int2 pin disable) */
   uint8_t free_fall        :  1; /* free fall event */
   uint8_t wake_up          :  1; /* wake up event */
   uint8_t wake_up_z        :  1; /* wake up on Z axis event */
@@ -4111,30 +4091,19 @@ uint8_t timestamp        :
   uint8_t tap_y            :  1; /* single-tap on Y axis event */
   uint8_t tap_x            :  1; /* single-tap on X axis event */
   uint8_t tap_sign         :  1; /* sign of tap event (0-pos / 1-neg) */
-uint8_t six_d            :
-  1; /* orientation change (6D/4D detection) */
-uint8_t six_d_xl         :
-  1; /* X-axis low 6D/4D event (under threshold) */
-uint8_t six_d_xh         :
-  1; /* X-axis high 6D/4D event (over threshold) */
-uint8_t six_d_yl         :
-  1; /* Y-axis low 6D/4D event (under threshold) */
-uint8_t six_d_yh         :
-  1; /* Y-axis high 6D/4D event (over threshold) */
-uint8_t six_d_zl         :
-  1; /* Z-axis low 6D/4D event (under threshold) */
-uint8_t six_d_zh         :
-  1; /* Z-axis high 6D/4D event (over threshold) */
-uint8_t sleep_change     :
-  1; /* Act/Inact (or Vice-versa) status changed */
-uint8_t sleep_state      :
-  1; /* Act/Inact status flag (0-Act / 1-Inact) */
+  uint8_t six_d            : 1; /* orientation change (6D/4D detection) */
+  uint8_t six_d_xl         : 1; /* X-axis low 6D/4D event (under threshold) */
+  uint8_t six_d_xh         : 1; /* X-axis high 6D/4D event (over threshold) */
+  uint8_t six_d_yl         : 1; /* Y-axis low 6D/4D event (under threshold) */
+  uint8_t six_d_yh         : 1; /* Y-axis high 6D/4D event (over threshold) */
+  uint8_t six_d_zl         : 1; /* Z-axis low 6D/4D event (under threshold) */
+  uint8_t six_d_zh         : 1; /* Z-axis high 6D/4D event (over threshold) */
+  uint8_t sleep_change     : 1; /* Act/Inact (or Vice-versa) status changed */
+  uint8_t sleep_state      : 1; /* Act/Inact status flag (0-Act / 1-Inact) */
   uint8_t step_detector    :  1; /* Step detected */
   uint8_t tilt             :  1; /* Relative tilt event detected */
-uint8_t sig_mot          :
-  1; /* "significant motion" event detected */
-uint8_t fsm_lc           :
-  1; /* fsm long counter timeout interrupt event */
+  uint8_t sig_mot          : 1; /* "significant motion" event detected */
+  uint8_t fsm_lc           : 1; /* fsm long counter timeout interrupt event */
   uint8_t fsm1             :  1; /* fsm 1 interrupt event */
   uint8_t fsm2             :  1; /* fsm 2 interrupt event */
   uint8_t fsm3             :  1; /* fsm 3 interrupt event */
@@ -4160,21 +4129,14 @@ uint8_t fsm_lc           :
   uint8_t mlc7             :  1; /* mlc 7 interrupt event */
   uint8_t mlc8             :  1; /* mlc 8 interrupt event */
   uint8_t sh_endop         :  1; /* sensor hub end operation */
-uint8_t sh_slave0_nack   :
-  1; /* Not acknowledge on sensor hub slave 0 */
-uint8_t sh_slave1_nack   :
-  1; /* Not acknowledge on sensor hub slave 1 */
-uint8_t sh_slave2_nack   :
-  1; /* Not acknowledge on sensor hub slave 2 */
-uint8_t sh_slave3_nack   :
-  1; /* Not acknowledge on sensor hub slave 3 */
-uint8_t sh_wr_once       :
-  1; /* "WRITE_ONCE" end on sensor hub slave 0 */
-uint16_t fifo_diff       :
-  10; /* Number of unread sensor data in FIFO*/
+  uint8_t sh_slave0_nack   : 1; /* Not acknowledge on sensor hub slave 0 */
+  uint8_t sh_slave1_nack   : 1; /* Not acknowledge on sensor hub slave 1 */
+  uint8_t sh_slave2_nack   : 1; /* Not acknowledge on sensor hub slave 2 */
+  uint8_t sh_slave3_nack   : 1; /* Not acknowledge on sensor hub slave 3 */
+  uint8_t sh_wr_once       : 1; /* "WRITE_ONCE" end on sensor hub slave 0 */
+  uint16_t fifo_diff       : 10; /* Number of unread sensor data in FIFO*/
   uint8_t fifo_ovr_latched :  1; /* Latched FIFO overrun status */
-uint8_t fifo_bdr         :
-  1; /* FIFO Batch counter threshold reached */
+  uint8_t fifo_bdr         : 1; /* FIFO Batch counter threshold reached */
   uint8_t fifo_full        :  1; /* FIFO full */
   uint8_t fifo_ovr         :  1; /* FIFO overrun */
   uint8_t fifo_th          :  1; /* FIFO threshold reached */

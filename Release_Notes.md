@@ -83,13 +83,25 @@ This directory contains the LSM6DSO32X component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section5" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section5" aria-hidden="true">
 <label for="collapse-section5" aria-hidden="true">V2.0.1 / 20-Jun-2024</label>
 <div>
 
 ## Main changes
 
 - updated README.md file with tag reference and mdelay description
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section6" checked aria-hidden="true">
+<label for="collapse-section6" aria-hidden="true">V2.1.0 / 18-Dec-2024</label>
+<div>
+
+## Main changes
+
+- Read always both FIFO_STATUS1 and FIFO_STATUS2 regs
 
 ##
 

@@ -10413,18 +10413,11 @@ int32_t lsm6dso32x_interrupt_mode_get(const stmdev_ctx_t *ctx,
 
   ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_CTRL3_C,
                             (uint8_t *)&ctrl3_c, 1);
+  ret += lsm6dso32x_read_reg(ctx, LSM6DSO32X_TAP_CFG0,
+                            (uint8_t *) &tap_cfg0, 1);
 
   if (ret == 0)
   {
-    ctrl3_c.h_lactive = val->active_low;
-    ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_TAP_CFG0,
-                              (uint8_t *) &tap_cfg0, 1);
-  }
-
-  if (ret == 0)
-  {
-    tap_cfg0.lir = val->base_latched;
-    tap_cfg0.int_clr_on_read = val->base_latched | val->emb_latched;
     ret = lsm6dso32x_mem_bank_set(ctx, LSM6DSO32X_EMBEDDED_FUNC_BANK);
 
     if (ret == 0)
@@ -10433,14 +10426,14 @@ int32_t lsm6dso32x_interrupt_mode_get(const stmdev_ctx_t *ctx,
                                 (uint8_t *) &page_rw, 1);
     }
 
-    if (ret == 0)
-    {
-      page_rw.emb_func_lir = val->emb_latched;
-      ret = lsm6dso32x_write_reg(ctx, LSM6DSO32X_PAGE_RW,
-                                 (uint8_t *) &page_rw, 1);
-    }
-
     ret += lsm6dso32x_mem_bank_set(ctx, LSM6DSO32X_USER_BANK);
+  }
+
+  if (ret == 0)
+  {
+    val->active_low   = ctrl3_c.h_lactive;
+    val->base_latched = tap_cfg0.lir;
+    val->emb_latched  = page_rw.emb_func_lir;
   }
 
   return ret;

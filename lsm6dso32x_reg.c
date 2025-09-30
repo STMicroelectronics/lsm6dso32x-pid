@@ -3776,19 +3776,6 @@ int32_t lsm6dso32x_int_notification_get(const stmdev_ctx_t *ctx,
         *val = LSM6DSO32X_ALL_INT_PULSED;
         break;
     }
-
-    ret = lsm6dso32x_mem_bank_set(ctx, LSM6DSO32X_EMBEDDED_FUNC_BANK);
-  }
-
-  if (ret == 0)
-  {
-    ret = lsm6dso32x_read_reg(ctx, LSM6DSO32X_PAGE_RW,
-                              (uint8_t *) &page_rw, 1);
-  }
-
-  if (ret == 0)
-  {
-    ret = lsm6dso32x_mem_bank_set(ctx, LSM6DSO32X_USER_BANK);
   }
 
   return ret;

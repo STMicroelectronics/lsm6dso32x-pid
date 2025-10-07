@@ -107,7 +107,7 @@ This directory contains the LSM6DSO32X component drivers.
 
 </div>
 
-<input type="checkbox" id="collapse-section7" checked aria-hidden="true">
+<input type="checkbox" id="collapse-section7" aria-hidden="true">
 <label for="collapse-section7" aria-hidden="true">V2.2.0 / 18-Dec-2024</label>
 <div>
 
@@ -115,6 +115,21 @@ This directory contains the LSM6DSO32X component drivers.
 
 - Fix driver formatting options
 - Added pointer to private data in stmdev_ctx_t
+
+##
+
+</div>
+
+<input type="checkbox" id="collapse-section8" checked aria-hidden="true">
+<label for="collapse-section8" aria-hidden="true">V2.3.0 / 08-Oct-2025</label>
+<div>
+
+## Main changes
+
+- Fix interrupt_mode_get API
+- Added checks after reads and reset membank on errors
+- Removed useless read in int_notification_get
+- Adding CODE_OF_CONDUCT.md and SECURITY.md
 
 ##
 
